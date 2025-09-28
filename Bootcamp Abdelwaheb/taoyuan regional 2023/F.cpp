@@ -23,26 +23,31 @@ void fast() {
 
 const int maxn = (int) 2 * 1e5 + 7;
 const int mod = (int) 1e9 + 7;
-bool winner(int curr,int x,int y) {
-    if (x >= 2*y)
-        return curr;
-    return winner(1-curr,y,x-y);
+struct node {
+    int f,s,i;
+};
+bool comp(node a, node b) {
+    if (a.s*b.f == b.s*a.f)return a.i < b.i;
+    return a.s*b.f > b.s*a.f;
 }
 
 int main() {
     fast();
-    int x,y;
-    while (cin>>x>>y) {
-        if (x == 0 && y==0)break;
-        if (x%y==0 || y%x==0) {
-            cout<<"Stan wins"<<endl;
-            continue;
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<node> arr(n);
+        for (int i = 0; i < n; i++) {
+            cin >> arr[i].f >> arr[i].s;
+            arr[i].i=i;
         }
-        bool res = winner(0,max(x,y),min(x,y));
-        if (!res)
-            cout<<"Stan wins"<<endl;
-        else
-            cout<<"Ollie wins"<<endl;
+        sort(all(arr),comp);
+        for (int i=0;i<n;i++) {
+            cout<<arr[i].i+1<<" ";
+        }
+        cout<<endl;
     }
     return 0;
 }

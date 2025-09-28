@@ -23,26 +23,27 @@ void fast() {
 
 const int maxn = (int) 2 * 1e5 + 7;
 const int mod = (int) 1e9 + 7;
-bool winner(int curr,int x,int y) {
-    if (x >= 2*y)
-        return curr;
-    return winner(1-curr,y,x-y);
-}
 
 int main() {
     fast();
-    int x,y;
-    while (cin>>x>>y) {
-        if (x == 0 && y==0)break;
-        if (x%y==0 || y%x==0) {
-            cout<<"Stan wins"<<endl;
-            continue;
+    ifstream cin("mosalah.in");
+    int t;
+    cin >> t;
+    while (t--) {
+        int av,scored,played,rest;
+        cin>>av>>scored>>played>>rest;
+
+        int goals_need = av * (played+rest);
+        if (scored >= goals_need) {
+            cout<<0<<endl;
         }
-        bool res = winner(0,max(x,y),min(x,y));
-        if (!res)
-            cout<<"Stan wins"<<endl;
-        else
-            cout<<"Ollie wins"<<endl;
+        else if (rest==0) {
+            cout<<-1<<endl;
+        }
+        else {
+            cout<<goals_need - scored<<endl;
+        }
+
     }
     return 0;
 }

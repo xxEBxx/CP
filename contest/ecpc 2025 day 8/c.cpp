@@ -23,26 +23,30 @@ void fast() {
 
 const int maxn = (int) 2 * 1e5 + 7;
 const int mod = (int) 1e9 + 7;
-bool winner(int curr,int x,int y) {
-    if (x >= 2*y)
-        return curr;
-    return winner(1-curr,y,x-y);
-}
 
 int main() {
     fast();
-    int x,y;
-    while (cin>>x>>y) {
-        if (x == 0 && y==0)break;
-        if (x%y==0 || y%x==0) {
-            cout<<"Stan wins"<<endl;
-            continue;
-        }
-        bool res = winner(0,max(x,y),min(x,y));
-        if (!res)
-            cout<<"Stan wins"<<endl;
-        else
-            cout<<"Ollie wins"<<endl;
+    int n,m,k;
+    cin>>n>>m>>k;
+    vvi arr(n+1,vi(m+1,0));
+    for (int i=0;i<k;i++) {
+        int a,b;
+        cin>>a>>b;
+        arr[a][b]=1;
     }
+    int res=0;
+    for (int i=0;i<=n;i++) {
+        for (int j=0;j<=m;j++) {
+            for (int d=1;d<=min(n,m);d++) {
+                if (i+d>n || j+d>m)break;
+                if (arr[i][j]==1 && arr[i+d][j]==1 && arr[i+d][j+d]==1 && arr[i][j+d]==1) {
+
+                    res++;
+                }
+            }
+        }
+    }
+    cout<<res;
+
     return 0;
 }

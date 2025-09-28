@@ -1,4 +1,5 @@
 
+
 #include<bits/stdc++.h>
 
 #define all(v) v.begin(), v.end()
@@ -23,26 +24,24 @@ void fast() {
 
 const int maxn = (int) 2 * 1e5 + 7;
 const int mod = (int) 1e9 + 7;
-bool winner(int curr,int x,int y) {
-    if (x >= 2*y)
-        return curr;
-    return winner(1-curr,y,x-y);
-}
 
 int main() {
     fast();
-    int x,y;
-    while (cin>>x>>y) {
-        if (x == 0 && y==0)break;
-        if (x%y==0 || y%x==0) {
-            cout<<"Stan wins"<<endl;
-            continue;
+    int t;
+    cin >> t;
+    while (t--) {
+        int n,k;
+        cin >> n>>k;
+        string s;cin>>s;
+        int c1=0;
+        int st = n-k-1,en = k;
+        for (int i=0;i<n;i++) {
+            if (i<=st || i>=en ) {
+                if (s[i]=='1')c1++;
+            }
         }
-        bool res = winner(0,max(x,y),min(x,y));
-        if (!res)
-            cout<<"Stan wins"<<endl;
-        else
-            cout<<"Ollie wins"<<endl;
+        if (c1 <= k && k >= n/2)cout<<"ALICE"<<endl;
+        else cout<<"BOB"<<endl;
     }
     return 0;
 }
